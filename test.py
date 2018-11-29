@@ -4,7 +4,6 @@ from flask import Flask, request
 import do
 import time
 import mysql.connector
-# from mysql.connector import Error
 
 application = Flask(__name__)
 # starttime=time.time()
