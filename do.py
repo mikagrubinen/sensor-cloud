@@ -5,7 +5,7 @@ import get
 
 # This function adds cluster information to data dict, that will be sent to remote mongodb database
 # @param mycursor - mysql object class instance that can execute operations such as SQL statements
-# @param data - empty python dict to be filled cluster ids
+# @param data - empty python dict to be filled with cluster ids
 def make_data(mycursor, data):
 		
 	# fetch all cluster ids from database	
