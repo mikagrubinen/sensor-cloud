@@ -18,8 +18,9 @@ def make_data(mycursor, data):
 	else:
 		for x in fetch_clusters:	
 			cluster_id = x[0]
+			cluster_name = 'cluster' + cluster_id
 			# key is cluster id, value is empty dict
-			data[cluster_id] = {}
+			data[cluster_name] = {}
 			# call node() functions to fill data dict with nodes data
 			node(mycursor, data, cluster_id)
 
@@ -28,6 +29,7 @@ def make_data(mycursor, data):
 # @param data - python dict filled with cluster ids, to be filled with nodes ids
 # @cluster - current cluster id from make_data function
 def node(mycursor, data, cluster_id):
+	cluster_name = 'cluster' + cluster_id
 	# fetch all node ids connected to given cluster
 	mycursor.execute("SELECT smart_node_id FROM smart_city_281_smart_node WHERE smart_node_connected_to_cluster_id = %s", (cluster_id,))
 	fetch_nodes = mycursor.fetchall()
@@ -37,7 +39,8 @@ def node(mycursor, data, cluster_id):
 	else:
 		for y in fetch_nodes:
 			node_id = y[0]
-			data[cluster_id][node_id] = {}
+			node_name = 'node' + node_id
+			data[cluster_name][node_name] = {}
 			sensor(mycursor, data, cluster_id, node_id)
 
 # This function adds sensors information to data dict
@@ -46,6 +49,8 @@ def node(mycursor, data, cluster_id):
 # @cluster - current cluster id from make_data function
 # @node - current node id from node() function
 def sensor(mycursor, data, cluster_id, node_id):
+	cluster_name = 'cluster' + cluster_id
+	node_name = 'node' + node_id
 	# fetch all sensor ids connected to given node (including sensor type)
 	mycursor.execute("SELECT sensor_id, sensor_type_id FROM smart_city_281_sensor_dtls WHERE smart_node_id = %s", (node_id,))
 	fetch_sensors = mycursor.fetchall()	
@@ -57,7 +62,7 @@ def sensor(mycursor, data, cluster_id, node_id):
 			sensor_id = z[0]
 			sensor_type = z[1]
 			sensor_data = generate_sensor_data(sensor_type)
-			data[cluster_id][node_id][sensor_id] = sensor_data
+			data[cluster_name][node_name][sensor_id] = sensor_data
 
 # This function generates random sensor data based on sensor type
 # @param sensor_type: 1 - temperature, 2 - pressure, 3 - humidity, 4 - light
