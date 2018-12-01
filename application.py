@@ -23,8 +23,7 @@ def hello():
 	if connection.is_connected():
 
 		do.make_data(mycursor, data)
-		mongo()
-		# print (data)		
+		mongo()		
 		return str(data)
 	else:
 		return "no connection"
@@ -35,20 +34,42 @@ def hello():
 def mongo():
 	myclient = pymongo.MongoClient("mongodb://sujan:sujansareen1@ds231133.mlab.com:31133/street_table")
 	mydb = myclient.street_table
-	mycol = mydb["street"]
+	mycol = mydb["data"]
 
-	# print(data)
-	# data = {'man': 'good', 'name':'bad', 'tri':'get'}
-
-	y = mycol.insert_one(data)
+	#******************************* INSERT MANY #********************************************#
 
 
-	x = mycol.find()
 
-	# data.clear()
-	for a in x:
-		print(a)
-##################################################################################################
+	#!!!!!!!!!!!!!!!!!!!   ADD TIMESTAMP     !!!!!!!!!!!!!!!
+
+
+	
+	# mylist = [
+	#   { "sensor_id": "4", "street_id": "2", "cluster_id":"2", "node_id":"3", "sensor_data":10},
+	#   { "sensor_id": "5", "street_id": "2", "cluster_id":"3", "node_id":"3", "sensor_data":11},
+	#   { "sensor_id": "6", "street_id": "3", "cluster_id":"3", "node_id":"3", "sensor_data":12}
+	# ]
+	
+	# y = mycol.insert_many(mylist)
+	############################################################################################
+
+	#**************************** DELETE ALL documents in collection **************************#
+	# x = mycol.delete_many({})
+	# print(x.deleted_count, " documents deleted.")
+	############################################################################################
+
+	#************************************ FIND ALL ********************************************#
+	# mydoc = mycol.find()
+	# for x in mydoc:
+	# 	print(x)
+	#############################################################################################
+
+	#******************************* FIND ALL with addres *************************************#
+	myquery = { "street_id": "2", "node_id":"3"}
+	mydoc = mycol.find(myquery)
+	for x in mydoc:
+		print(x)
+	############################################################################################
 
 if __name__ == '__main__':
     application.run(debug = True)
@@ -68,3 +89,12 @@ if __name__ == '__main__':
 	# while True:
  #  		return (time.asctime( time.localtime(time.time()) ))
  #  		time.sleep(20.0 - ((time.time() - starttime) % 20.0))
+
+
+
+
+
+
+
+
+
