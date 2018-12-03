@@ -1,0 +1,34 @@
+# mongo_mysql_functions.txt
+
+################################# ##MongoDB ###############################################
+#******************************* INSERT MANY #********************************************#	
+# mylist = [
+#   { "sensor_id": "4", "street_id": "2", "cluster_id":"2", "node_id":"3", "sensor_data":10},
+#   { "sensor_id": "5", "street_id": "2", "cluster_id":"3", "node_id":"3", "sensor_data":11},
+#   { "sensor_id": "6", "street_id": "3", "cluster_id":"3", "node_id":"3", "sensor_data":12}
+# ]
+
+# y = mycol.insert_many(data)	
+#**************************** DELETE ALL documents in collection **************************#
+# x = mycol.delete_many({})
+# print(x.deleted_count, " documents deleted.")
+#************************************ FIND ALL ********************************************#
+# mydoc = mycol.find()
+# for x in mydoc:
+# 	print(x)
+#******************************* FIND ALL with addres *************************************#
+# myquery = { "cluster_id": 1, 'sensor_id':2}
+# mydoc = mycol.find(myquery)
+# for x in mydoc:
+# 	print(x)
+############################################################################################
+
+
+
+
+#####################################  MySQL Update table ##################################
+# if connection.is_connected():
+# 	sql = "UPDATE smart_city_281_sensor_dtls SET cluster_id = 4 WHERE sensor_id = '10'"
+# 	mycursor.execute(sql)
+# 	connection.commit()
+############################################################################################
