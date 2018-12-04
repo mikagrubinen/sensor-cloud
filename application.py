@@ -20,7 +20,7 @@ def index():
 	print("Sending sensor data to a database...")
 
 	while True:
-
+		
 		time.sleep(30.0 - ((time.time() - starttime) % 30.0))
 		print (time.asctime( time.localtime(time.time()) ))
 

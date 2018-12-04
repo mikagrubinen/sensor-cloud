@@ -16,13 +16,13 @@ def make_data(mycursor, data):
 		pass
 	else:
 		for x in fetch_sensor_info:
-			print (x[5])
-			mydict = {}
-			sensor_data = generate_sensor_data(x[4])
-			timestamp = time.asctime( time.localtime(time.time()) )
-			mydict.update({	'street_id':int(x[0]), 'cluster_id': int(x[1]), 'smart_node_id':int(x[2]), 
-							'sensor_id':int(x[3]), 'sensor_data':sensor_data, 'timestamp':timestamp})
-			data.append(mydict)
+			if x[5] == '1':
+				mydict = {}
+				sensor_data = generate_sensor_data(x[4])
+				timestamp = time.asctime( time.localtime(time.time()) )
+				mydict.update({	'street_id':int(x[0]), 'cluster_id': int(x[1]), 'smart_node_id':int(x[2]), 
+								'sensor_id':int(x[3]), 'sensor_data':sensor_data, 'timestamp':timestamp})
+				data.append(mydict)
 
 # This function generates random sensor data based on sensor type
 # @param sensor_type: 1 - temperature, 2 - pressure, 3 - humidity, 4 - light
