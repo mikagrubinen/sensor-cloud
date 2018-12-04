@@ -14,15 +14,6 @@ application = Flask(__name__)
 starttime=time.time()
 
 
-# @application.before_request
-# def before_request():
-# 	g.connection = mysql.connector.connect(
-# 		host		='rds-mysql-smartcity.cbtogzj0jikw.us-west-1.rds.amazonaws.com',
-# 		database	='smartcityadmin',
-# 	    user		='smartcityadmin',
-# 	    passwd		='smartcityadmin')
-
-
 @application.route("/", methods=['POST', 'GET'])
 def index():
 

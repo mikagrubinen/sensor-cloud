@@ -9,13 +9,14 @@ import time
 # @param data - empty python dict to be filled with data and sensor readings
 def make_data(mycursor, data):
 
-	mycursor.execute("SELECT street_id, cluster_id, smart_node_id, sensor_id ,sensor_type_id FROM smart_city_281_sensor_dtls")
+	mycursor.execute("SELECT street_id, cluster_id, smart_node_id, sensor_id ,sensor_type_id, sensor_status FROM smart_city_281_sensor_dtls")
 	fetch_sensor_info = mycursor.fetchall()
 
 	if not fetch_sensor_info:
 		pass
 	else:
 		for x in fetch_sensor_info:
+			print (x[5])
 			mydict = {}
 			sensor_data = generate_sensor_data(x[4])
 			timestamp = time.asctime( time.localtime(time.time()) )
