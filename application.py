@@ -34,9 +34,9 @@ def index():
 		if connection.is_connected():
 			do.make_data(mycursor, data)
 
-			myclient = pymongo.MongoClient("mongodb://sujan:sujansareen1@ds231133.mlab.com:31133/street_table")
-			mydb = myclient.street_table
-			mycol = mydb["data"]
+			myclient = pymongo.MongoClient("mongodb://team2_cmpe281:team2_cmpe281@ds129454.mlab.com:29454/sensor_data")
+			mydb = myclient.sensor_data
+			mycol = mydb["sensor_data"]
 
 			x = mycol.insert_many(data)
 			data.clear()
