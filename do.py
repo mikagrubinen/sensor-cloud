@@ -3,25 +3,31 @@
 import mysql.connector
 import get
 import time
+import datetime
 
 # This function generates data, that will be sent to remote mongodb database
 # @param mycursor - mysql object class instance that can execute operations such as SQL statements
 # @param data - empty python dict to be filled with data and sensor readings
 def make_data(mycursor, data):
 
-	mycursor.execute("SELECT street_id, cluster_id, smart_node_id, sensor_id ,sensor_type_id, sensor_status FROM smart_city_281_sensor_dtls")
+	mycursor.execute("SELECT a.cluster_id, a.smart_node_id, a.sensor_id, a.sensor_type_id, a.sensor_status, b.street_no, b.street, b.city \
+		FROM smart_city_281_sensor_dtls a, smart_city_281_cluster b WHERE a.cluster_id = b.cluster_id")
 	fetch_sensor_info = mycursor.fetchall()
+
+	# print(fetch_sensor_info)
 
 	if not fetch_sensor_info:
 		pass
 	else:
 		for x in fetch_sensor_info:
-			if x[5] == '1':
+			if x[4] == 'active':
 				mydict = {}
-				sensor_data = generate_sensor_data(x[4])
-				timestamp = time.asctime( time.localtime(time.time()) )
-				mydict.update({	'street_id':int(x[0]), 'cluster_id': int(x[1]), 'smart_node_id':int(x[2]), 
-								'sensor_id':int(x[3]), 'sensor_data':sensor_data, 'timestamp':timestamp})
+				sensor_data = generate_sensor_data(x[3])
+				date = datetime.datetime.today().strftime('%Y-%m-%d')
+				time = str(datetime.datetime.now().time())
+				mydict.update({	'cluster_id': int(x[0]), 	'smart_node_id':int(x[1]), 
+								'sensor_id':int(x[2]), 		'sensor_data':sensor_data, 		'date':date, 'time':time,
+								'street_no':int(x[5]), 		'street':x[6], 'city':x[7]})
 				data.append(mydict)
 
 # This function generates random sensor data based on sensor type
