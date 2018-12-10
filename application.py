@@ -28,19 +28,18 @@ def index():
 
 	while True:
 		
-		time.sleep(10.0 - ((time.time() - starttime) % 10.0))
+		time.sleep(20.0 - ((time.time() - starttime) % 20.0))
 		print (time.asctime( time.localtime(time.time()) ))
 
 
 		if connection.is_connected():
 			do.make_data(mycursor, data)
-			print(data)
 
-			# myclient = pymongo.MongoClient("mongodb://sujan:sujansareen1@ds231133.mlab.com:31133/street_table")
-			# mydb = myclient.street_table
-			# mycol = mydb["data"]
+			myclient = pymongo.MongoClient("mongodb://sujan:sujansareen1@ds231133.mlab.com:31133/street_table")
+			mydb = myclient.street_table
+			mycol = mydb["data"]
 
-			# x = mycol.insert_many(data)
+			x = mycol.insert_many(data)
 			data.clear()
 		else:
 			print("Error with connection to a database")
