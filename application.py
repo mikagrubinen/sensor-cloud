@@ -39,6 +39,9 @@ def index():
 			mydb = myclient.street_table
 			mycol = mydb["data"]
 
+			if not data:
+				return "There is no sensors in a system"
+
 			x = mycol.insert_many(data)
 			data.clear()
 		else:

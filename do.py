@@ -18,7 +18,7 @@ def make_data(mycursor, data):
 		pass
 	else:
 		for x in fetch_sensor_info:
-			if x[4] == 'active':
+			if x[4] == 'Active':
 				mydict = {}
 				sensor_data = generate_sensor_data(x[3])
 				date = datetime.datetime.today().strftime('%Y-%m-%d')
@@ -32,11 +32,11 @@ def make_data(mycursor, data):
 # This function generates random sensor data based on sensor type
 # @param sensor_type: 1 - temperature, 2 - pressure, 3 - humidity, 4 - light
 def generate_sensor_data(sensor_type):
-	if '1' == sensor_type:
+	if 'Temperature' == sensor_type:
 		return get.temperature()
-	elif '2' == sensor_type:
+	elif 'Pressure' == sensor_type:
 		return get.pressure()
-	elif '3' == sensor_type:
+	elif 'Humidity' == sensor_type:
 		return get.humidity()
-	elif '4' == sensor_type:
+	elif 'Light' == sensor_type:
 		return get.light()
