@@ -10,7 +10,7 @@ import datetime
 # @param data - empty python dict to be filled with data and sensor readings
 def make_data(mycursor, data):
 
-	mycursor.execute("SELECT a.cluster_id, a.smart_node_id, a.sensor_id, a.sensor_type_id, a.sensor_status, b.street_no, b.street, b.city \
+	mycursor.execute("SELECT a.cluster_id, a.smart_node_id, a.sensor_id, a.sensor_type_id, a.sensor_status, b.street_no, b.street, b.city, b.client_id \
 		FROM smart_city_281_sensor_dtls a, smart_city_281_cluster b WHERE a.cluster_id = b.cluster_id")
 	fetch_sensor_info = mycursor.fetchall()
 
@@ -23,10 +23,11 @@ def make_data(mycursor, data):
 				sensor_data = generate_sensor_data(x[3])
 				date = datetime.datetime.today().strftime('%Y-%m-%d')
 				time = str(datetime.datetime.now().time())
-				mydict.update({	'cluster_id': int(x[0]), 	'smart_node_id':int(x[1]), 
-								'sensor_id':int(x[2]), 		'sensor_data':sensor_data, 		
-								'date':date, 'time':time,	'street_no':int(x[5]), 		
-								'street':x[6], 				'city':x[7]})
+				mydict.update({	'cluster_id': x[0], 	'smart_node_id':x[1], 
+								'sensor_id':str(x[2]), 		'sensor_data':sensor_data, 		
+								'date':date, 'time':time,	'street_no':x[5], 		
+								'street':x[6], 				'city':x[7],
+								'client_id': x[8]})
 				data.append(mydict)
 
 # This function generates random sensor data based on sensor type
