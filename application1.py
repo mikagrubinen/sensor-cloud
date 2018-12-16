@@ -28,7 +28,7 @@ def index():
 
 	while True:
 		
-		time.sleep(5.0 - ((time.time() - starttime) % 5.0))
+		time.sleep(20.0 - ((time.time() - starttime) % 20.0))
 		print (time.asctime( time.localtime(time.time()) ))
 
 
@@ -42,7 +42,7 @@ def index():
 			if not data:
 				return "There is no sensors in a system"
 
-			# x = mycol.insert_many(data)
+			x = mycol.insert_many(data)
 			data.clear()
 		else:
 			print("Error with connection to a database")
