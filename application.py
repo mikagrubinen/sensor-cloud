@@ -19,17 +19,18 @@ def index():
 
 	print("Sending sensor data to a database...")
 
+	connection = mysql.connector.connect(
+		host		='rds-mysql-smartcity.cbtogzj0jikw.us-west-1.rds.amazonaws.com',
+		database	='smartcityadmin',
+	    user		='smartcityadmin',
+	    passwd		='smartcityadmin')
+	mycursor = connection.cursor()
+
 	while True:
 		
-		time.sleep(30.0 - ((time.time() - starttime) % 30.0))
+		time.sleep(20.0 - ((time.time() - starttime) % 20.0))
 		print (time.asctime( time.localtime(time.time()) ))
 
-		connection = mysql.connector.connect(
-			host		='rds-mysql-smartcity.cbtogzj0jikw.us-west-1.rds.amazonaws.com',
-			database	='smartcityadmin',
-		    user		='smartcityadmin',
-		    passwd		='smartcityadmin')
-		mycursor = connection.cursor()
 
 		if connection.is_connected():
 			do.make_data(mycursor, data)
@@ -37,6 +38,9 @@ def index():
 			myclient = pymongo.MongoClient("mongodb://sujan:sujansareen1@ds231133.mlab.com:31133/street_table")
 			mydb = myclient.street_table
 			mycol = mydb["data"]
+
+			if not data:
+				return "There is no sensors in a system"
 
 			x = mycol.insert_many(data)
 			data.clear()
