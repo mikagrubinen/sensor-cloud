@@ -23,11 +23,12 @@ def make_data(mycursor, data):
 				sensor_data = generate_sensor_data(x[3])
 				date = datetime.datetime.today().strftime('%Y-%m-%d')
 				time = str(datetime.datetime.now().time())
-				mydict.update({	'cluster_id': x[0], 	'smart_node_id':x[1], 
+				mydict.update({	'cluster_id': x[0], 		'smart_node_id':x[1], 
 								'sensor_id':str(x[2]), 		'sensor_data':sensor_data, 		
-								'date':date, 'time':time,	'street_no':x[5], 		
-								'street':x[6], 				'city':x[7],
-								'client_id': x[8]})
+								'date':date, 				'time':time,	
+								'street_no':x[5], 			'street':x[6], 				
+								'city':x[7],				'client_id': x[8],
+								'sensor_type':x[3]})
 				data.append(mydict)
 
 # This function generates random sensor data based on sensor type
