@@ -42,7 +42,7 @@ def index():
 			if not data:
 				return "There is no sensors in a system"
 
-			# x = mycol.insert_many(data)
+			x = mycol.insert_many(data)
 			data.clear()
 		else:
 			print("Error with connection to a database")
