@@ -28,7 +28,7 @@ def index():
 
 	while True:
 		
-		time.sleep(20.0 - ((time.time() - starttime) % 20.0))
+		time.sleep(5.0 - ((time.time() - starttime) % 5.0))
 		print (time.asctime( time.localtime(time.time()) ))
 
 
@@ -56,7 +56,7 @@ def index():
 
 
 if __name__ == '__main__':
-	application.run(debug = True)
+	application.run(port = 5000, debug = True)
 
 
 
